@@ -1,11 +1,11 @@
 <template>
   <div>
-    Footer...
+    Search...
   </div>
 </template>
 <script>
 export default {
-  name:'Footer',
+  name:'Search',
 }
 </script>
 <style lang='less' rel='stylesheet/less' scoped>

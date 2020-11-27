@@ -1,11 +1,11 @@
 <template>
   <div>
-    Footer...
+    Register...
   </div>
 </template>
 <script>
 export default {
-  name:'Footer',
+  name:'Register',
 }
 </script>
 <style lang='less' rel='stylesheet/less' scoped>

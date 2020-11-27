@@ -1,11 +1,11 @@
 <template>
   <div>
-    Footer...
+    Login...
   </div>
 </template>
 <script>
 export default {
-  name:'Footer',
+  name:'Login',
 }
 </script>
 <style lang='less' rel='stylesheet/less' scoped>

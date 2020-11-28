@@ -13,15 +13,18 @@ export default new VueRouter({
       component: Home,
     },
     {
-      path: "/Login",
+      meta: {isShowFooter:true},
+      path: "/login",
       component: Login,
     },
     {
-      path: "/Register",
+      meta: {isShowFooter:true},
+      path: "/register",
       component: Register,
     },
     {
-      path: "/Search",
+      name: "search",
+      path: "/search/:searchText?",
       component: Search,
     },
   ],

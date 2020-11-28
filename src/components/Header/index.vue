@@ -10,7 +10,7 @@
               <span>请</span>
               <!-- <a href="###">登录</a>
               <a href="###" class="register">免费注册</a> -->
-              <router-link to="/Login">登录</router-link>
+              <router-link to="/login">登录</router-link>
               <router-link to="/register">免费注册</router-link>
             </p>
           </div>
@@ -39,6 +39,7 @@
               type="text"
               id="autocomplete"
               class="input-error input-xxlarge"
+              v-model="searchText"
             />
             <button class="sui-btn btn-xlarge btn-danger" type="button" @click="Search">
               搜索
@@ -52,10 +53,36 @@
 <script>
 export default {
   name: "Header",
+  data(){
+    return {
+      searchText:''
+    }
+  },
   methods:{
+    /**
+     * 搜索功能函数
+     */
+    // Search(){
+    //   // 获取搜索的数据
+    //   const { searchText } = this;
+    //   //判断是否要添加params参数
+    //   const params = searchText ? `/${searchText}` : ''
+    //   // 拼接路径
+    //   const location = "/Search" + params
+    //   // 编程式导航：因为将来要做搜索功能（要发送请求）
+    //   this.$router.push(location);
+    // }
     Search(){
-      // 编程式导航：因为将来要做搜索功能（要发送请求）
-      this.$router.push("/search");
+      const { searchText } = this;
+      const location = {
+          name:'search'
+      }
+      if(searchText){
+        location.params = {
+          searchText
+        }
+      }
+      this.$router.push(location)
     }
   }
 };

@@ -25,6 +25,7 @@
   import ListContainer from './ListContainer/ListContainer'
   import Rank from './Rank/Rank'
   import TodayRecommend from './TodayRecommend/TodayRecommend'
+  import TypeNav from '@comps/TypeNav'
   export default {
     name: 'Home',
     components: {
@@ -34,6 +35,7 @@
       ListContainer,
       Rank,
       TodayRecommend,
+      TypeNav
     }
   }
 </script>

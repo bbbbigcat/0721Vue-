@@ -1,18 +1,31 @@
-module.exports = {
-	lintOnSave: false, // 完全的关闭
-	// lintOnSave: 'warning', // 输出提示错误, 但项目继续运行
+const path = require("path");
 
-	devServer: {
-		proxy: {
-			"/api": {
-				// 只对请求路由以/api开头的请求进行代理转发
-				target: "http://182.92.128.115", // 转发的目标url
-				changeOrigin: true, // 支持跨域
-				/* pathRewrite: {
-					// 如果后台接口没有/api就需要写
-					"^/api": "",
-				}, */
-			},
-		},
-	},
+module.exports = {
+  // lintOnSave: false, // 关闭所有的eslint检查
+  // 当前配置会和vue的webpack合并
+  configureWebpack: {
+    resolve: {
+      alias: {
+        // 配置路径别名（可以简写路径）
+        "@views": path.resolve(__dirname, "src/views"),
+        "@assets": path.resolve(__dirname, "src/assets"),
+        "@comps": path.resolve(__dirname, "src/components"),
+        "@store": path.resolve(__dirname, "src/store"),
+        "@utils": path.resolve(__dirname, "src/utils"),
+        "@api": path.resolve(__dirname, "src/api"),
+      },
+    },
+  },
+  // 改了配置，一定要重启才能生效
+  devServer: {
+    proxy: {
+      "/api": {
+        target: "http://182.92.128.115",
+        changeOrigin: true, // 允许跨域
+        //   pathRewrite: { // 重写路径
+        //   "^/api": "",
+        // }
+      },
+    },
+  },
 };

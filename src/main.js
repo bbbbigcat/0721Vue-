@@ -4,7 +4,7 @@ import App from "./App";
 import store from "./store";
 import router from "./router";
 import "./plugins/element.js";
-
+import "./mock/mockServer";
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

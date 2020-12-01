@@ -130,7 +130,7 @@ export default {
   data() {
     return {
       // 初始化响应式数据
-      isHomeShow: this.$router.path === "/",
+      isHomeShow: this.$route.path === "/",
       isSearchShow: false,
     };
   },
@@ -177,9 +177,8 @@ export default {
           [`category${categorytype}Id`]: categoryid,
         },
       };
-
       //判断是否有params参数，有就加上
-      const { searchText } = this.$router.params;
+      const { searchText } = this.$route.params;
 
       if (searchText) {
         location.params = {

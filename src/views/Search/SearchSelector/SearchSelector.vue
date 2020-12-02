@@ -20,8 +20,8 @@
       </div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="goods in goodsList" :key="goods.Id">
-            <a>{{ attrs.attrValueList }}</a>
+          <li v-for="(attr, index) in attrs.attrValueList" :key="index">
+            <a>{{ attr }}</a>
           </li>
         </ul>
       </div>

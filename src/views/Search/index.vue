@@ -11,23 +11,51 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-show="options.keyword" @click="delKeyword">
+              关键词: {{ options.keyword }}<i>x</i>
+            </li>
+            <li
+              class="with-x"
+              v-show="options.categoryName"
+              @click="delCategory"
+            >
+              分类名称: {{ options.categoryName }}<i>x</i>
+            </li>
+            <li class="with-x" v-show="options.trademark" @click="delTrademark">
+              品牌: {{ options.trademark.split(":")[1] }}<i>x</i>
+            </li>
+            <li
+              class="with-x"
+              v-for="(prop, index) in options.props"
+              :key="prop"
+              @click="delProp(index)"
+            >
+              {{ prop.split(":")[2] }}: {{ prop.split(":")[1] }}<i>×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector :addTrademark="addTrademark" @add-prop="addProp" />
 
         <!--details-->
         <div class="details clearfix">
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li
+                  :class="{ active: options.order.indexOf('1') > -1 }"
+                  @click="setOrder('1')"
+                >
+                  <a
+                    >综合<i
+                      :class="{
+                        iconfont: true,
+                        'icon-direction-down': isAllDown, // 降序图标
+                        'icon-direction-up': !isAllDown, // 升序图标
+                      }"
+                    ></i
+                  ></a>
                 </li>
                 <li>
                   <a href="#">销量</a>
@@ -38,11 +66,31 @@
                 <li>
                   <a href="#">评价</a>
                 </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li
+                  :class="{ active: options.order.indexOf('2') > -1 }"
+                  @click="setOrder('2')"
+                >
+                  <a>
+                    价格
+                    <span>
+                      <i
+                        :class="{
+                          iconfont: true,
+                          'icon-arrow-up-filling': true,
+                          deactive:
+                            options.order.indexOf('2') > -1 && isPriceDown,
+                        }"
+                      ></i>
+                      <i
+                        :class="{
+                          iconfont: true,
+                          'icon-arrow-down-filling': true,
+                          deactive:
+                            options.order.indexOf('2') > -1 && !isPriceDown,
+                        }"
+                      ></i>
+                    </span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -88,35 +136,25 @@
               </li>
             </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          <!-- 分页器 -->
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="options.pageNo"
+            :pager-count="7"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="5"
+            background
+            layout="
+              prev,
+              pager, 
+              next, 
+              total, 
+              sizes, 
+              jumper"
+            :total="total"
+          >
+          </el-pagination>
         </div>
       </div>
     </div>
@@ -147,7 +185,11 @@ export default {
   },
   watch: {
     $route() {
-      this.undateProductList();
+      this.updateProductList();
+      // 功能未完成 清除首页输入框的内容
+      if (this.path === "/") {
+        this.options.keyword = "";
+      }
     },
   },
   components: {
@@ -159,7 +201,8 @@ export default {
   },
   methods: {
     ...mapActions(["getProductList"]),
-    undateProductList() {
+    // 更新商品列表
+    updateProductList() {
       const { searchText: keyword } = this.$route.params;
       const {
         categoryName,
@@ -175,14 +218,96 @@ export default {
         category2Id,
         category3Id,
       };
+      this.options = options;
       this.getProductList(options);
+    },
+    // 删除keyword关键字
+    delKeyword() {
+      this.options.keyword = "";
+      // 触发清空关键字函数
+      this.$bus.$emit("clearSearchText");
+      this.$router.replace({
+        name: "search",
+        query: this.$route.query,
+      });
+    },
+    // 删除category数据
+    delCategory() {
+      this.categoryName = "";
+      this.category1Id = "";
+      this.category2Id = "";
+      this.category3Id = "";
+      this.$router.replace({
+        name: "search",
+        params: this.$route.params,
+      });
+    },
+    // 增加trademark数据
+    addTrademark(trademark) {
+      this.options.trademark = trademark;
+      this.updateProductList();
+    },
+    // 删除trademark数据
+    delTrademark() {
+      this.options.trademark = "";
+      this.updateProductList();
+    },
+    // 添加品牌属性
+    addProp(prop) {
+      this.options.props.push(prop);
+      this.updateProductList();
+    },
+    // 删除品牌属性
+    delProp(index) {
+      this.options.props.splice(index, 1);
+      this.updateProductList();
+    },
+    // 设置排序方式  1:desc
+    setOrder(order) {
+      let [orderNum, orderType] = this.options.order.split(":");
+
+      // 不相等点击的就是第一次：不改变图标
+      // 相等点击的就是第二次：改变图标
+      if (orderNum === order) {
+        // 看order是1改综合排序
+        // 看order是1改价格排序
+        if (order === "1") {
+          this.isAllDown = !this.isAllDown;
+        } else {
+          this.isPriceDown = !this.isPriceDown;
+        }
+        orderType = orderType === "desc" ? "asc" : "desc";
+      } else {
+        // 点击一次, 如果点击的是价格，应该初始化为升序
+        if (order === "1") {
+          orderType = this.isAllDown ? "desc" : "asc";
+        } else {
+          this.isPriceDown = false;
+          orderType = "asc";
+        }
+      }
+
+      this.options.order = `${order}:${orderType}`;
+      this.updateProductList();
+    },
+    // 当每页条数发生变化触发
+    handleSizeChange(pageSize) {
+      // console.log("pageSize", pageSize);
+      this.options.pageSize = pageSize;
+      this.updateProductList();
+    },
+    // 当页码发生变化触发
+    handleCurrentChange(pageNo) {
+      // console.log("pageNo", pageNo);
+      this.options.pageNo = pageNo;
+      this.updateProductList(pageNo);
     },
   },
   mounted() {
     // 一上来发送请求要携带参数
     // 结构赋值提取 params 中 searchText 属性
     // 将 searchText 重命名为 keyword
-    this.undateProductList();
+    this.updateProductList();
   },
 };
 </script>
@@ -289,7 +414,8 @@ export default {
               line-height: 18px;
 
               a {
-                display: block;
+                display: flex;
+                justify-content: space-around;
                 cursor: pointer;
                 padding: 11px 15px;
                 color: #777;

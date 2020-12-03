@@ -7,8 +7,15 @@ import "./plugins/element.js";
 import "./mock/mockServer";
 Vue.config.productionTip = false;
 
+// 引入公共资源
+import "./styles/iconfont.css";
 /* eslint-disable no-new */
+
 new Vue({
+  beforeCreate() {
+    //初始化全局事件总线对象
+    Vue.prototype.$bus = this;
+  },
   render: (h) => h(App),
   // 应用router
   router,

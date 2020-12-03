@@ -96,7 +96,15 @@ export default {
       if (categoryName) {
         location.query = this.$route.query;
       }
-      this.$router.push(location);
+      // 判断是否为search组件(以命名路由的名字来判断最简单)如果是就用replace发送请求，否则为push
+
+      // if(this.$route.path.indexof('/search') > -1)  判断是否为/search开头
+      if (this.$route.name === "search") {
+        this.$router.replace(location);
+      } else {
+        this.$router.push(location);
+      }
+
       // params的方式传参
       // this.$router.push(location);
       // query 的方式传参
@@ -128,6 +136,12 @@ export default {
       //   this.$router.push({ name: "search" });
       // }
     },
+  },
+  mounted() {
+    this.$bus.$on("clearSearchText", () => {
+      // 删除keyword之后，清空输入框数据
+      this.searchText = "";
+    });
   },
 };
 </script>

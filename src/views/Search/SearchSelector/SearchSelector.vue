@@ -4,7 +4,11 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="trademark in trademarkList" :key="trademark.tmid">
+          <li
+            v-for="trademark in trademarkList"
+            :key="trademark.tmid"
+            @click="addTrademark(`${trademark.tmId}:${trademark.tmName}`)"
+          >
             {{ trademark.tmName }}
           </li>
         </ul>
@@ -14,13 +18,25 @@
         <a href="javascript:void(0);">更多</a>
       </div>
     </div>
+    <!-- 品牌属性 -->
     <div class="type-wrap" v-for="attrs in attrsList" :key="attrs.attrId">
       <div class="fl key">
         {{ attrs.attrName }}
       </div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attr, index) in attrs.attrValueList" :key="index">
+          <!-- <li v-for="(attr, index) in attrs.attrValueList" :key="index">
+            <a>{{ attr }}</a>
+          </li> -->
+          <li
+            v-for="(attr, index) in attrs.attrValueList"
+            :key="index"
+            @click="
+              $listeners['add-prop'](
+                `${attrs.attrId}:${attr}:${attrs.attrName}`
+              )
+            "
+          >
             <a>{{ attr }}</a>
           </li>
         </ul>
@@ -36,6 +52,9 @@ export default {
   name: "SearchSelector",
   computed: {
     ...mapGetters(["trademarkList", "attrsList"]),
+  },
+  props: {
+    addTrademark: Function,
   },
 };
 </script>

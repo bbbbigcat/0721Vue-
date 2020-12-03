@@ -1,0 +1,36 @@
+@font-face {font-family: "iconfont";
+  src: url('../assets/font/iconfont.eot?t=1606890904175');
+  /* IE9 */
+  src: url('../assets/font/iconfont.eot?t=1606890904175#iefix') format('embedded-opentype'),
+  /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAOEAAsAAAAAB9gAAAM4AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDKgqCYIInATYCJAMUCwwABCAFhG0HZhvJBsiusCnD9chiBG1g4aEFznkAbviIINqP3+zJ++IaxTBtJE9mFUI3L42QSYHuJfz/W9N+gXi24MKqQGyDfzY8+yZTAJAJ2xKouvbuLApFwlXouMHJizw1DbjBOr3wgPQ9QIBpLgFmmBKQ9v//v3f6G1MDmdeeBZLqmjY2jbmoE1AnDiigsTZFViAJeovsIs7kRR0n0G6aSsK5wfF5SFegcYF45pDNkJ6zK4oWahWamqVFfADWml4m/gLeh9+P/wzRSlIzNPXKgwEbdP+qN2k3DpJjIJ7OBG0VGZtAIZ7UWu5Jiv2bkrQ7vZPtAa1aJabyzxtfIraODTNatf/hJVkhGii5E5wSA4VfSBHBLxci8cuNyPw6lnyU5Ara88FbwAuZtKgOfMWAVhVaz0tpcO/xogTl0MX9brHN798Ingc3pew9nN8BPQhe3UVKsCTwOlQmh2IbtDT4yt8hMnx/USYnB3j+Y0LK/UBW6DE6QE5Z1N1uCQYuOs7ei5cTXpg/q2ioiJzs6OiKRPKzfETTlZjbNbqEtqSLLkmknNdS1/uPRRXhJ/PLM9lH9UHad4fm+J61nKUXdaR3FszSSXcd3yqH5k+X/+DnqMtPRObenzh/2S8WeJdgldgzP08cBzg6LpOyQtwXZ0P+lrj4e37j9MHbvDGv/VuzCvj5eTXRfnQCXPSOxY74Z4iBdcWVIm0tdjUV2bZqAuhNaMd6fkKYfv+n0QyB0wmthgbYWkylkLVaxBXSJlQdtqDR6iS02zC0usMALkmUNqw7EiD0eoWk2w/Iev3GFdI/qIZ9QqM3MrS7GkVbdliOx5l9HM0CbcSyRhxW5qVELzKj1FmUl9xmnpWGzEXkPoeL6DW6YmgIvcinmOFblg1CUEI585BB4TR0uxlROHOiVWjsQiitWi2te5PGyjyQ6SwOmQnIhrBYQzhYMV6UtxYyS5+fhWRL3Mx4S02HdxHifBydE3oaOgBuSOUF1dzKKz7LZAaCQBEUx3gQg8Ig5ObGEEr9ICdkJWjYB3gVrbS4EYWqNMtrPO+4DdqhrWqkyFGiRqP9NudsRW2jXm+uzcFPVvAgoixfdtOSktclVm1hbhsA') format('woff2'),
+  url('../assets/font/iconfont.woff?t=1606890904175') format('woff'),
+  url('../assets/font/iconfont.ttf?t=1606890904175') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('../assets/font/iconfont.svg?t=1606890904175#iconfont') format('svg');
+  /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow-down:before {
+  content: "\e665";
+}
+
+.icon-direction-down:before {
+  content: "\e66b";
+}
+
+.icon-direction-up:before {
+  content: "\e66c";
+}
+
+.icon-arrow-down-bold:before {
+  content: "\e686";
+}
+

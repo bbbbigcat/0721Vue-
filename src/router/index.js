@@ -50,7 +50,6 @@ export default new VueRouter({
     {
       name: "search",
       path: "/search/:searchText?", // 占位的方式实现params的方式传参
-
       component: Search,
     },
   ],

@@ -185,8 +185,13 @@ export default {
           searchText,
         };
       }
-
-      this.$router.push(location);
+      // 判断是否为search组件(以命名路由的名字来判断最简单)如果是就用replace发送请求，否则为push
+      if (this.$route.name === "search") {
+        this.$router.replace(location);
+      } else {
+        this.$router.push(location);
+      }
+      // this.$router.replace(location);
     },
   },
   mounted() {

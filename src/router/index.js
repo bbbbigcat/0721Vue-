@@ -4,6 +4,8 @@ import Home from "../views/Home";
 import Login from "../views/Login";
 import Register from "../views/Register";
 import Search from "../views/Search";
+import Detail from "../views/Detail";
+import ShopCart from "../views/ShopCart";
 Vue.use(VueRouter);
 
 /**
@@ -51,6 +53,14 @@ export default new VueRouter({
       name: "search",
       path: "/search/:searchText?", // 占位的方式实现params的方式传参
       component: Search,
+    },
+    {
+      path: "/detail", // 占位的方式实现params的方式传参
+      component: Detail,
+    },
+    {
+      path: "/shopcart", // 占位的方式实现params的方式传参
+      component: ShopCart,
     },
   ],
 });

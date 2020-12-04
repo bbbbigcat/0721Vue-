@@ -76,7 +76,7 @@
                       <i
                         :class="{
                           iconfont: true,
-                          'icon-arrow-up-filling': true,
+                          'icon-direction-up': true,
                           deactive:
                             options.order.indexOf('2') > -1 && isPriceDown,
                         }"
@@ -84,7 +84,7 @@
                       <i
                         :class="{
                           iconfont: true,
-                          'icon-arrow-down-filling': true,
+                          'icon-direction-down': true,
                           deactive:
                             options.order.indexOf('2') > -1 && !isPriceDown,
                         }"
@@ -100,9 +100,9 @@
               <li class="yui3-u-1-5" v-for="goods in goodsList" :key="goods.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"
+                    <router-link to="/Detail" target="_blank"
                       ><img :src="goods.defaultImg"
-                    /></a>
+                    /></router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -152,7 +152,7 @@
               total, 
               sizes, 
               jumper"
-            :total="total"
+            :total="productList.total"
           >
           </el-pagination>
         </div>
@@ -162,7 +162,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import TypeNav from "@comps/TypeNav";
 import SearchSelector from "./SearchSelector/SearchSelector";
 export default {
@@ -181,6 +181,7 @@ export default {
         props: [], //商品属性
         trademark: "", //品牌
       },
+      isAllDown: true,
     };
   },
   watch: {
@@ -197,6 +198,9 @@ export default {
     TypeNav,
   },
   computed: {
+    ...mapState({
+      productList: (state) => state.search.productList,
+    }),
     ...mapGetters(["goodsList"]),
   },
   methods: {
@@ -244,6 +248,7 @@ export default {
     },
     // 增加trademark数据
     addTrademark(trademark) {
+      if (this.options.trademark === trademark) return;
       this.options.trademark = trademark;
       this.updateProductList();
     },
@@ -254,6 +259,7 @@ export default {
     },
     // 添加品牌属性
     addProp(prop) {
+      if (this.options.props.includes(prop)) return;
       this.options.props.push(prop);
       this.updateProductList();
     },
@@ -426,6 +432,9 @@ export default {
                 a {
                   background: #e1251b;
                   color: #fff;
+                  i {
+                    font-size: 12px;
+                  }
                 }
               }
             }

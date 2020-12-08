@@ -100,7 +100,7 @@
               <li class="yui3-u-1-5" v-for="goods in goodsList" :key="goods.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <router-link to="/Detail" target="_blank"
+                    <router-link :to="`/Detail/${goods.id}`"
                       ><img :src="goods.defaultImg"
                     /></router-link>
                   </div>
@@ -111,11 +111,10 @@
                     </strong>
                   </div>
                   <div class="attr">
-                    <a
-                      target="_blank"
-                      href="item.html"
+                    <router-link
+                      :to="`/Detail/${goods.id}`"
                       title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
-                      >{{ goods.title }}</a
+                      >{{ goods.title }}</router-link
                     >
                   </div>
                   <div class="commit">
@@ -187,10 +186,6 @@ export default {
   watch: {
     $route() {
       this.updateProductList();
-      // 功能未完成 清除首页输入框的内容
-      if (this.path === "/") {
-        this.options.keyword = "";
-      }
     },
   },
   components: {
@@ -248,6 +243,7 @@ export default {
     },
     // 增加trademark数据
     addTrademark(trademark) {
+      // 判断属性是否存在
       if (this.options.trademark === trademark) return;
       this.options.trademark = trademark;
       this.updateProductList();
@@ -259,6 +255,7 @@ export default {
     },
     // 添加品牌属性
     addProp(prop) {
+      // 判断属性是否存在
       if (this.options.props.includes(prop)) return;
       this.options.props.push(prop);
       this.updateProductList();

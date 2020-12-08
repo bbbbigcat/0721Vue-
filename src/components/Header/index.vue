@@ -137,6 +137,16 @@ export default {
       // }
     },
   },
+  watch: {
+    $route: {
+      handler() {
+        if (this.$route.path === "/") {
+          this.$bus.$emit("clearSearchText");
+        }
+      },
+      immediate: true,
+    },
+  },
   mounted() {
     this.$bus.$on("clearSearchText", () => {
       // 删除keyword之后，清空输入框数据

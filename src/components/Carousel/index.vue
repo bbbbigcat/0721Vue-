@@ -30,8 +30,8 @@ export default {
       required: true,
     },
   },
-  watch: {
-    carouselList() {
+  methods: {
+    initSwiper() {
       if (this.swiper) return;
       this.$nextTick(() => {
         this.swiper = new Swiper(".swiper-container", {
@@ -54,7 +54,11 @@ export default {
       });
     },
   },
-  mounted() {},
+  mounted() {
+    if (!this.carouselList.length) return;
+    this.initSwiper();
+    console.log(this.carouselList);
+  },
 };
 </script>
 <style lang='less' rel='stylesheet/less' scoped>

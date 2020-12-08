@@ -73,6 +73,9 @@ export default {
   components: {
     Carousel,
   },
+  mounted() {
+    console.log(this.floor);
+  },
 };
 </script>
 <style  lang="less" scoped>

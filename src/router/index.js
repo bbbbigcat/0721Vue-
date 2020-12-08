@@ -6,6 +6,7 @@ import Register from "../views/Register";
 import Search from "../views/Search";
 import Detail from "../views/Detail";
 import ShopCart from "../views/ShopCart";
+import AddCartSuccess from "../views/AddCartSuccess";
 Vue.use(VueRouter);
 
 /**
@@ -55,12 +56,23 @@ export default new VueRouter({
       component: Search,
     },
     {
-      path: "/detail", // 占位的方式实现params的方式传参
+      name: "detail",
+      path: "/detail/:id", // 占位的方式实现params的方式传参
       component: Detail,
     },
     {
+      name: "shopcart",
       path: "/shopcart", // 占位的方式实现params的方式传参
       component: ShopCart,
     },
+    {
+      name: "addcartsuccess",
+      path: "/addcartsuccess", // 占位的方式实现params的方式传参
+      component: AddCartSuccess,
+    },
   ],
+  // 配置切换路由滚动条在最顶部
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
 });

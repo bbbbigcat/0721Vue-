@@ -1,22 +1,48 @@
 <template>
-  <div>
-    <Carousel />
-  </div>
-  <!-- <div class="swiper-container">
+  <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="../images/s1.png">
+      <div
+        class="swiper-slide"
+        v-for="skuImage in ImageList"
+        :key="skuImage.id"
+      >
+        <img :src="skuImage.imgUrl" @click="addskuImg" />
       </div>
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-  </div> -->
+  </div>
 </template>
 
 <script>
-// import Swiper from 'swiper'
+import Swiper, { Navigation } from "swiper";
+Swiper.use([Navigation]);
 export default {
   name: "ImageList",
+  props: {
+    ImageList: Array,
+  },
+  watch: {
+    ImageList() {
+      this.$nextTick(() => {
+        new Swiper(".swiper-container", {
+          slidesPerView: 5,
+          spaceBetween: 30,
+          slidesPerGroup: 5,
+          loopFillGroupWithBlank: true,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
+      });
+    },
+  },
+  methods: {
+    addskuImg(e) {
+      this.$bus.$emit("clickLittleimg", e.target.src);
+    },
+  },
 };
 </script>
 

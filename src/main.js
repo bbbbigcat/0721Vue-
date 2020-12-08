@@ -10,6 +10,7 @@ Vue.config.productionTip = false;
 // 引入公共资源
 import "./styles/iconfont.css";
 /* eslint-disable no-new */
+import "swiper/swiper-bundle.min.css";
 
 new Vue({
   beforeCreate() {
